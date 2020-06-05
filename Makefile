@@ -6,13 +6,13 @@ CFLAGS = -g
 #CLIBS = -L./lib/ -lSender -lReceiver -lResponser  -lpthread
 CLIBS =
 SUBDIRS = ./src
-INCLUDES = $(wildcard ./include/*.hpp)
-SOURCES = $(wildcard ./*.cc /src/*.cc)
+INCLUDES =$(notdir $(wildcard ./include/*.hpp))
+SOURCES =$(notdir $(wildcard ./*.cc /src/*.cc))
 INCLUDE_DIRS = -I./include
 TARGET = wooy
 OBJECTS = $(patsubst %.cc,%.o,$(SOURCES))
 export XX CFLAGS AR ARFLAG
-$(TARGET) : $(OBJECTS) $(SUBDIRS)
+$(TARGET) : $(OBJECTS) $(SUBDIRS)/*.o
 	$(XX) $< -o $@ $(CLIBS)
 $(OBJECTS) : %.o : %.cc
 	$(XX) -c $(CFLAGS) $< -o $@ $(INCLUDE_DIRS)
